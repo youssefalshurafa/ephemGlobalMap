@@ -19,6 +19,6 @@ export const statusMap = {
     'BURKINA FASO': 'Piloting',
     'EQUATORIAL GUINEA': 'Request',
     'BENIN': 'Request',
-   
+    "ETHIOPIA": 'Request'
 };
 

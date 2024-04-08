@@ -89,7 +89,7 @@ geojson = L.geoJson(globalMapWithStatus, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(map);
-//================= create an info panel
+//================= create an info panel ===============//
 var info = L.control();
 
 info.onAdd = function (map) {
@@ -109,7 +109,7 @@ info.update = function (props) {
 
 info.addTo(map);
 
-//=================== Create a legend control
+//=================== Create a legend control ===================//
 var legend = L.control({ position: 'bottomright' });
 
 // Define legend content
@@ -127,6 +127,21 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
+// Create a new control for the refresh button
+var resetButton = L.DomUtil.create('button', 'reset-button'); 
+resetButton.innerHTML = 'Return';
+resetButton.addEventListener('click',() => returnToDefaultView()); 
+
+var resetControl = L.control({ position: 'topleft' }); 
+
+resetControl.onAdd = function (map) {
+return resetButton;
+};
+resetControl.addTo(map);
 
 
 
+function returnToDefaultView () {
+    console.log('reset');
+    map.setView([39.00, 44.00], 3);
+}
