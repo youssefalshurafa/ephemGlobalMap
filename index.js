@@ -25,8 +25,22 @@ var Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/a
 	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	ext: 'png',
     noWrap: false
-}).addTo(map)
+})
 
+var CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+}).addTo(map);
+
+var baseLayers = {
+    "Smooth Dark": Stadia_AlidadeSmoothDark,
+    "Light No Labels": CartoDB_PositronNoLabels
+};
+
+var overlays = {};  // This can be populated with any additional layers you want to toggle
+
+var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
 function getColor(status) {
     switch (status) {
