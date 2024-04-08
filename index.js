@@ -120,7 +120,7 @@ var legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'legend');
     div.innerHTML += '<i style="background:#009dd4"></i> <span style="font-size: 14px;">Piloting Stage</span> <br>';
-    div.innerHTML += '<i style="background:#2e1e34"></i> <span style="font-size: 14px;">Launched Stage</span> <br>';
+    div.innerHTML += '<i style="background:#d23264"></i> <span style="font-size: 14px;">Launched Stage</span> <br>';
     div.innerHTML += '<i style="background:#d4ba5f"></i> <span style="font-size: 14px;">Request Stage</span> <br>';
     return div;
 };
