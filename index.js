@@ -1,11 +1,6 @@
-
+import { statusMap } from './statusMap.js';
 function addStatusToGeoJSON(geojson) {
-    const statusMap = {
-        'SUDAN': 'Active',
-        'UGANDA': 'Active',
-        'SOUTH AFRICA': 'Inactive'
-  
-    };
+ 
     // Loop through each feature in the GeoJSON
     geojson.features.forEach(feature => {
         // Get the ADM0_NAME of the feature
@@ -35,12 +30,12 @@ var Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/a
 
 function getColor(status) {
     switch (status) {
-        case 'Active':
-            return '#369c51';  
-        case 'Inactive':
+        case 'Piloting':          //Blue
+            return '#009dd4';  
+        case 'Launched':          //Violet
             return '#d23264';    
-        case 'Ready':
-            return 'yellow';    
+        case 'Request':            //yellow
+            return '#d4ba5f';    
         default:
             return '#e0e0e0';  
     }
@@ -124,9 +119,9 @@ var legend = L.control({ position: 'bottomright' });
 
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'legend');
-    div.innerHTML += '<i style="background:#369c51"></i> <span style="font-size: 14px;">Active</span> <br>';
-    div.innerHTML += '<i style="background:#d23264"></i> <span style="font-size: 14px;">Inactive</span> <br>';
-    div.innerHTML += '<i style="background:#ffff00"></i> <span style="font-size: 14px;">Ready</span> <br>';
+    div.innerHTML += '<i style="background:#009dd4"></i> <span style="font-size: 14px;">Piloting Stage</span> <br>';
+    div.innerHTML += '<i style="background:#2e1e34"></i> <span style="font-size: 14px;">Launched Stage</span> <br>';
+    div.innerHTML += '<i style="background:#d4ba5f"></i> <span style="font-size: 14px;">Request Stage</span> <br>';
     return div;
 };
 
