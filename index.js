@@ -17,25 +17,35 @@ function addStatusToGeoJSON(geojson) {
 
 var globalMapWithStatus = addStatusToGeoJSON(globalMap);
 
-var map = L.map('map').setView([39.00, 44.00], 3);
+var map = L.map('map').setView([0, 17.2812], 4);
 
-var Stadia_AlidadeSmoothDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
-	minZoom: 0,
-	maxZoom: 20,
-	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	ext: 'png',
-    noWrap: false
+var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
 })
 
-var CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
+var CartoDB_DarkMatterNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
+});
+var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
 }).addTo(map);
 
+var CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
+});
 var baseLayers = {
-    "Smooth Dark": Stadia_AlidadeSmoothDark,
-    "Light No Labels": CartoDB_PositronNoLabels
+    "Smooth Dark": CartoDB_DarkMatter,
+    " No Labels": CartoDB_DarkMatterNoLabels,
+    "Light": CartoDB_Positron,
+    "Light no Labels": CartoDB_PositronNoLabels
 };
 
 var overlays = {};  // This can be populated with any additional layers you want to toggle
@@ -44,14 +54,14 @@ var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
 function getColor(status) {
     switch (status) {
-        case 'Piloting':          //Blue
-            return '#009dd4';  
-        case 'Launched':          //Violet
-            return '#d23264';    
-        case 'Request':            //yellow
-            return '#d4ba5f';    
+        case 'Launched':          
+            return 'red'; 
+        case 'Piloting':         
+            return '#c92f2f';  
+        case 'Request':           
+            return '#db7070';    
         default:
-            return '#e0e0e0';  
+            return '#787777';  
     }
 }
 
@@ -133,9 +143,9 @@ var legend = L.control({ position: 'bottomright' });
 
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'legend');
-    div.innerHTML += '<i style="background:#009dd4"></i> <span style="font-size: 14px;">Piloting Stage</span> <br>';
-    div.innerHTML += '<i style="background:#d23264"></i> <span style="font-size: 14px;">Launched Stage</span> <br>';
-    div.innerHTML += '<i style="background:#d4ba5f"></i> <span style="font-size: 14px;">Request Stage</span> <br>';
+    div.innerHTML += '<i style="background:#e37e7f"></i> <span style="font-size: 14px;">Launched Stage</span> <br>';
+    div.innerHTML += '<i style="background:#fb9796"></i> <span style="font-size: 14px;">Piloting Stage</span> <br>';
+    div.innerHTML += '<i style="background:#cfa6a9"></i> <span style="font-size: 14px;">Request Stage</span> <br>';
     return div;
 };
 
@@ -157,5 +167,5 @@ resetControl.addTo(map);
 
 function returnToDefaultView () {
     console.log('reset');
-    map.setView([39.00, 44.00], 3);
+    map.setView([0, 17.2812], 4);
 }

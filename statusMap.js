@@ -9,6 +9,7 @@ export const statusMap = {
     'SOMALIA': 'Launched',
     'SUDAN': 'Launched',
     'SYRIA': 'Request',
+    "WESTERN SAHARA": "Request",
   //AFRO
     'UGANDA': 'Launched',
     'SOUTH AFRICA': 'Piloting',
